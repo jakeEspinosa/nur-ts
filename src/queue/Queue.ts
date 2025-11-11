@@ -71,6 +71,21 @@ export class Queue<T> {
     return this._items.pop()!;
   }
 
+  /**
+   * Retrieves and removes the head of this queue, or returns null if this queue is empty.
+   *
+   * @returns the head of this queue, or null if this queue is empty
+   */
+  poll(): T | null {
+    if (this._size === 0) {
+      return null;
+    }
+
+    this._left++;
+    this._size--;
+    return this._items.pop()!;
+  }
+
   get size() {
     return this._size;
   }

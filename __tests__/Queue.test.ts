@@ -58,7 +58,7 @@ describe("Queue", () => {
 
       expect(q.offer(3)).toEqual(false);
     });
-  })
+  });
 
   describe("remove", () => {
     it("should return the head when remove is called", () => {
@@ -101,5 +101,44 @@ describe("Queue", () => {
         q.remove()
       }).toThrow("Queue is empty");
     });
-  })
+  });
+
+  describe("poll", () => {
+    it("should return the head when poll is called", () => {
+      const q: Queue<number> = new Queue(1);
+
+      const item = 4;
+      q.add(item);
+
+      expect(q.poll()).toEqual(item);
+    })
+
+    it("should be size 0 when an existing item is polled", () => {
+      const q: Queue<number> = new Queue(2);
+
+      q.add(1);
+      q.poll();
+      expect(q.size === 0).toEqual(true);
+    });
+
+    it("should return null when poll is called on an empty queue", () => {
+      const q: Queue<number> = new Queue(1);
+
+      expect(q.poll()).toEqual(null);
+    });
+
+    it("should return null 2 items are added but 3 are polled", () => {
+      const q: Queue<number> = new Queue(4);
+
+      const items: number[] = [1, 2];
+      items.forEach((item) => {
+        q.add(item);
+      });
+
+      q.poll();
+      q.poll();
+
+      expect(q.poll()).toEqual(null);
+    });
+  });
 });
