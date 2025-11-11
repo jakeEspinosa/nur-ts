@@ -127,7 +127,7 @@ describe("Queue", () => {
       expect(q.poll()).toEqual(null);
     });
 
-    it("should return null 2 items are added but 3 are polled", () => {
+    it("should return null if 2 items are added but 3 are polled", () => {
       const q: Queue<number> = new Queue(4);
 
       const items: number[] = [1, 2];
@@ -139,6 +139,64 @@ describe("Queue", () => {
       q.poll();
 
       expect(q.poll()).toEqual(null);
+    });
+  });
+
+  describe("element", () => {
+    it("should retrieve but not remove the head when element is called", () => {
+      const q: Queue<number> = new Queue(1);
+
+      const item = 4;
+      q.add(item);
+
+      expect(q.size).toEqual(1);
+      expect(q.element()).toEqual(item);
+      expect(q.size).toEqual(1);
+      expect(q.element()).toEqual(item);
+    })
+
+    it("should be size 1 when an existing item is element'ed", () => {
+      const q: Queue<number> = new Queue(2);
+
+      q.add(1);
+      q.element();
+      expect(q.size === 1).toEqual(true);
+    });
+
+    it("should throw when element is called on an empty queue", () => {
+      const q: Queue<number> = new Queue(1);
+
+      expect(() => {
+        q.element()
+      }).toThrow("Queue is empty");
+    });
+  });
+
+  describe("peek", () => {
+    it("should retrieve but not remove the head when peek is called", () => {
+      const q: Queue<number> = new Queue(1);
+
+      const item = 4;
+      q.add(item);
+
+      expect(q.size).toEqual(1);
+      expect(q.peek()).toEqual(item);
+      expect(q.size).toEqual(1);
+      expect(q.peek()).toEqual(item);
+    })
+
+    it("should be size 1 when an existing item is peeked", () => {
+      const q: Queue<number> = new Queue(2);
+
+      q.add(1);
+      q.peek();
+      expect(q.size === 1).toEqual(true);
+    });
+
+    it("should return null when peek is called on an empty queue", () => {
+      const q: Queue<number> = new Queue(1);
+
+      expect(q.peek()).toEqual(null);
     });
   });
 });

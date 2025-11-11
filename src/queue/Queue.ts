@@ -86,6 +86,35 @@ export class Queue<T> {
     return this._items.pop()!;
   }
 
+  /**
+   * Retrieves, but does not remove, the head of this queue. This method
+   * differs from peek only in that it throws an exception if this queue
+   * is empty.
+   *
+   * @returns the head of this queue
+   */
+  element(): T {
+    if (this._size === 0) {
+      throw new Error("Queue is empty");
+    }
+
+    return this._items[this._left]!;
+  }
+
+  /**
+   * Retrieves, but does not remove, the head of this queue, or returns null if
+   * this queue is empty.
+   *
+   * @returns the head of this queue, or null if this queue is empty
+   */
+  peek(): T | null {
+    if (this._size === 0) {
+      return null;
+    }
+
+    return this._items[this._left]!;
+  }
+
   get size() {
     return this._size;
   }
