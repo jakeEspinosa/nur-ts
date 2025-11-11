@@ -36,6 +36,30 @@ describe("Queue", () => {
     });
   });
 
+  describe("offer", () => {
+    it("should be size 1 when an item is offered", () => {
+      const q: Queue<number> = new Queue();
+
+      expect(q.size).toEqual(0);
+      q.offer(2);
+      expect(q.size).toEqual(1);
+    });
+
+    it("should return true when an item is successfully offered", () => {
+      const q: Queue<number> = new Queue();
+
+      expect(q.offer(1)).toEqual(true);
+    });
+
+    it("should return false when full and offer is called", () => {
+      const q: Queue<number> = new Queue(1);
+
+      q.offer(2);
+
+      expect(q.offer(3)).toEqual(false);
+    });
+  })
+
   describe("remove", () => {
     it("should return the head when remove is called", () => {
       const q: Queue<number> = new Queue(1);

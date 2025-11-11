@@ -36,6 +36,26 @@ export class Queue<T> {
   }
 
   /**
+   * Inserts the specified item into this queue if it is possible to do so
+   * immediately without violating capacity restrictions. This method is
+   * generally preferable to add(item), which can fail to insert an item
+   * only by throwing an error.
+   *
+   * @param item the item to add
+   * @returns true if the item was added to this queue, else false
+   */
+  offer(item: T): boolean {
+    if (this._size === this._items.length) {
+      return false;
+    }
+
+    this._items[this._right] = item;
+    this._right = (this._right + 1) % this._items.length;
+    this._size++;
+    return true;
+  }
+
+  /**
    * Retrieves and removes the head of this queue. This method differs from
    * poll only in that it throws an exception if this queue is empty.
    *
