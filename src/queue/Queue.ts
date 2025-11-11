@@ -2,6 +2,9 @@ export interface Queue<T> {
   add(item: T): void;
 }
 
+/**
+ * Aims to follow the Java 8 Collections API.
+ */
 export class Queue<T> {
   private _items: T[];
   private _left: number = 0;
@@ -13,18 +16,39 @@ export class Queue<T> {
   }
 
   /**
-   * Adds item to the end of the queue.
+   * Inserts the specified item into this queue if it is possible to do so
+   * immediately without violating capacity restrictions, returning true upon
+   * success and throwing an error if no space is currently
+   * available.
    *
-   * @param item item to be enqueued
+   * @param item the item to add
+   * @returns true
    */
-  add(item: T): void {
-    if (this.size === this._items.length) {
+  add(item: T): boolean {
+    if (this._size === this._items.length) {
       throw new Error("Queue is full");
     }
 
     this._items[this._right] = item;
     this._right = (this._right + 1) % this._items.length;
     this._size++;
+    return true;
+  }
+
+  /**
+   * Retrieves and removes the head of this queue. This method differs from
+   * poll only in that it throws an exception if this queue is empty.
+   *
+   * @returns the head of the queue
+   */
+  remove(): T {
+    if (this._size === 0) {
+      throw new Error("Queue is empty");
+    }
+
+    this._left++;
+    this._size--;
+    return this._items.pop()!;
   }
 
   get size() {
