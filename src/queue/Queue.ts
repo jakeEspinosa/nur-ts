@@ -3,7 +3,11 @@ export interface Queue<T> {
 }
 
 /**
- * Aims to follow the Java 8 Collections API.
+ * A collection designed for holding elements prior to processing. Besides
+ * basic Collection operations, queues provide additional insertion,
+ * extraction, and inspection operations. Each of these methods exists in two
+ * forms: one throws an exception if the operation fails, the other returns a
+ * special value (either null or false, depending on the operation)
  */
 export class Queue<T> {
   private _items: T[];
